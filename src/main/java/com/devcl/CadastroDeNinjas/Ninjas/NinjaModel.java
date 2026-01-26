@@ -1,5 +1,6 @@
-package com.devcl.CadastroDeNinjas;
+package com.devcl.CadastroDeNinjas.Ninjas;
 
+import com.devcl.CadastroDeNinjas.Missoes.MissoesModel;
 import jakarta.persistence.*;
 
 //JPA (Java Persistence API)
@@ -12,4 +13,7 @@ public class NinjaModel {
     private String nome;
     private String email;
     private int idade;
+    @ManyToOne
+    @JoinColumn(name = "missoes_id") //Foreign Key
+    private MissoesModel missoes;
 }
