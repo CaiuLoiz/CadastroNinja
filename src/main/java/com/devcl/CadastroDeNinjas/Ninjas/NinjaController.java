@@ -1,7 +1,8 @@
 package com.devcl.CadastroDeNinjas.Ninjas;
 
 import org.springframework.web.bind.annotation.*;
-
+//Esta camada Controller cria rotas para o servidor
+//Ela está mais próxima do usuário permitindo ele fazer requisições
 @RestController
 @RequestMapping
 public class NinjaController {
