@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("missoes")
 public class MissoesController {
-    @GetMapping("/criar")
+    @GetMapping("/mostrar")
     public String mostrarMissao() { return "Todas as Missões"; }
     @PostMapping("/criar")
     public String criarMissao() { return "Missão criada com sucesso"; }
