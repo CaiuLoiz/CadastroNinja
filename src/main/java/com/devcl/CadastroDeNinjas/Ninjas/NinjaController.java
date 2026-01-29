@@ -17,12 +17,16 @@ public class NinjaController {
 
     @GetMapping("/mostrar")
     public List<NinjaModel> mostrarNinjas() { return ninjaService.listarNinjas(); }
-    @GetMapping("/mostrar_id")
-    public String mostrarNinjasId() { return "Todos os Ids Ninja"; }
+
+    @GetMapping("/mostrar/{id}")
+    public NinjaModel mostrarNinjasId(@PathVariable Long id) { return ninjaService.listarNinjasId(id); }
+
     @PostMapping("/criar")
     public String criarNinja() { return "Ninja Criado"; }
+
     @PutMapping("/alterar_id")
     public String alterarNinjaId() { return "Alterar Ninja"; }
+
     @DeleteMapping("/deletar")
     public String deletarNinjaId() { return "Deletar Ninja"; }
 }
