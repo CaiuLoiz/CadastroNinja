@@ -22,7 +22,9 @@ public class NinjaController {
     public NinjaModel mostrarNinjasId(@PathVariable Long id) { return ninjaService.listarNinjasId(id); }
 
     @PostMapping("/criar")
-    public String criarNinja() { return "Ninja Criado"; }
+    public NinjaModel criarNinja(@RequestBody NinjaModel ninjaModel) {
+        return ninjaService.criarNinja(ninjaModel);
+    }
 
     @PutMapping("/alterar_id")
     public String alterarNinjaId() { return "Alterar Ninja"; }
