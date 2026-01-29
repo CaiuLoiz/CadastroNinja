@@ -1,13 +1,22 @@
 package com.devcl.CadastroDeNinjas.Ninjas;
 
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 //Esta camada Controller cria rotas para o servidor
 //Ela está mais próxima do usuário permitindo ele fazer requisições
 @RestController
 @RequestMapping("/ninja")
 public class NinjaController {
+    private NinjaService ninjaService;
+
+    public NinjaController(NinjaService ninjaService) {
+        this.ninjaService = ninjaService;
+    }
+
     @GetMapping("/mostrar")
-    public String mostrarNinjas() { return "Todos os Ninjas"; }
+    public List<NinjaModel> mostrarNinjas() { return ninjaService.listarNinjas(); }
     @GetMapping("/mostrar_id")
     public String mostrarNinjasId() { return "Todos os Ids Ninja"; }
     @PostMapping("/criar")
