@@ -3,7 +3,7 @@ package com.devcl.CadastroDeNinjas.Missoes;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("missoes")
+@RequestMapping("/missoes")
 public class MissoesController {
     @GetMapping("/mostrar")
     public String mostrarMissao() { return "Todas as Missões"; }
