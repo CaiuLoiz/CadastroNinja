@@ -2,15 +2,29 @@ package com.devcl.CadastroDeNinjas.Missoes;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/missoes")
 public class MissoesController {
+    private MissoesService missoesService;
+
+    public MissoesController(MissoesService missoesService) {
+        this.missoesService = missoesService;
+    }
+
     @GetMapping("/mostrar")
-    public String mostrarMissao() { return "Todas as Missões"; }
+    public List<MissoesModel> mostrarMissao() { return missoesService.mostrarMissoes(); }
+
+    @GetMapping("/mostrar/{id}")
+    public MissoesModel mostrarMissaoId(@PathVariable Long id) { return missoesService.mostrarMissoesId(id); }
+
     @PostMapping("/criar")
-    public String criarMissao() { return "Missão criada com sucesso"; }
+    public MissoesModel criarMissao(@RequestBody MissoesModel missoesModel) { return missoesService.criarMissao(missoesModel); }
+
     @PutMapping("/alterar")
     public String alterarMissao() { return "Missão alterada com sucesso"; }
-    @DeleteMapping("/deletar")
-    public String deletarMissao() { return "Missão deletada com sucesso"; }
+
+    @DeleteMapping("/deletar/{id}")
+    public void deletarMissao(@PathVariable Long id) { missoesService.deletarMissaoId(id); }
 }
