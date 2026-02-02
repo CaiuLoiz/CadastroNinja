@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 //Injeção de dependência - Serve para dar permissão a camada Service de acessar o Repository, que por sua vez se conecta ao BD
 //Para realizar cria-se uma variável do tipo Repository e cria um constructor a partir dela
@@ -17,13 +18,16 @@ public class NinjaService {
         this.ninjaMapper = ninjaMapper;
     }
 
-    public List<NinjaModel> listarNinjas() {
-        return ninjaRepository.findAll();
+    public List<NinjaDTO> listarNinjas() {
+        List<NinjaModel> ninjas = ninjaRepository.findAll();
+        return ninjas.stream()
+                .map(ninjaMapper::map)
+                .collect(Collectors.toList());
     }
 
-    public NinjaModel listarNinjasId(Long id) {
-        Optional<NinjaModel> ninjaModel = ninjaRepository.findById(id);
-        return ninjaModel.orElse(null);
+    public NinjaDTO listarNinjasId(Long id) {
+        Optional<NinjaModel> ninjas = ninjaRepository.findById(id);
+        return ninjas.map(ninjaMapper::map).orElse(null);
     }
 
     public NinjaDTO criarNinja(NinjaDTO ninjaDTO) {
@@ -32,10 +36,13 @@ public class NinjaService {
         return ninjaMapper.map(ninja);
     }
 
-    public NinjaModel alterarNinja(Long id, NinjaModel ninja) {
-        if (ninjaRepository.existsById(id)) {
-            ninja.setId(id);
-            return ninjaRepository.save(ninja);
+    public NinjaDTO alterarNinja(Long id, NinjaDTO ninjaDTO) {
+        Optional<NinjaModel> ninja = ninjaRepository.findById(id);
+        if (ninja.isPresent()) {
+            NinjaModel ninjaAtual = ninjaMapper.map(ninjaDTO);
+            ninjaAtual.setId(id);
+            NinjaModel ninjaSalvo = ninjaRepository.save(ninjaAtual);
+            return ninjaMapper.map(ninjaSalvo);
         }
         return null;
     }
